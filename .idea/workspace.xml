@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Timer work">
+    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Notification work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/timer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/timer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useTimer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useTimer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useNotification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useNotification.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/usePermission.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/usePermission.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +39,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/MaelMainsard/pomodoro-react-native.git&quot;,
-    &quot;accountId&quot;: &quot;b1731f43-5f68-4e2e-8b73-0d7b71fbb441&quot;
+    &quot;accountId&quot;: &quot;74e7bfee-a194-4703-aa9f-a7726579683b&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -129,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728477524277</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Notification work">
+      <option name="closed" value="true" />
+      <created>1728481820702</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728481820702</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,6 +149,7 @@
     <MESSAGE value="Le home screen est bon" />
     <MESSAGE value="Save du hook timer" />
     <MESSAGE value="Timer work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Timer work" />
+    <MESSAGE value="Notification work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Notification work" />
   </component>
 </project>

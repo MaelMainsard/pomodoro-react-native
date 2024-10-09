@@ -1,9 +1,16 @@
 import { ThemedView } from "@/components/ThemedView";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import { askAllPermission } from '../hooks/usePermission';
+import {useEffect} from "react";
 
 export default function HomeScreen() {
     const router = useRouter();
+
+    useEffect(() => {
+        askAllPermission();
+    })
+
 
     return (
         <ThemedView style={styles.screen}>

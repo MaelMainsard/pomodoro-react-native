@@ -1,4 +1,5 @@
 import * as Notifications from 'expo-notifications';
+import { isNotificationOn } from './usePermission';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -9,12 +10,15 @@ Notifications.setNotificationHandler({
 });
 
 export async function scheduleNotification(msg:string) {
-    await Notifications.scheduleNotificationAsync({
-        content: {
-            title: "Timer Finished!",
-            body: `${msg}`,
-            sound: true,
-        },
-        trigger: null, // Déclenche après le nombre de secondes spécifié
-    });
+
+    if(await isNotificationOn()){
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: "Timer Finished!",
+                body: `${msg}`,
+                sound: true,
+            },
+            trigger: null,
+        });
+    }
 }

@@ -1,10 +1,12 @@
-import * as Location from 'expo-location';
+import * as Notifications from 'expo-notifications';
 
-export async function requestPermissionsBg(LOCATION_TASK_NAME:string): Promise<void> {
-    const { status: backgroundStatus } = await Location.requestBackgroundPermissionsAsync();
-    if (backgroundStatus === 'granted') {
-        await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-            accuracy: Location.Accuracy.Balanced,
-        });
+export async function isNotificationOn():Promise<boolean> {
+    const { status: notificationStatus } = await Notifications.requestPermissionsAsync();
+    return notificationStatus === 'granted';
+}
+
+export async function askAllPermission(): Promise<void> {
+    if (!await isNotificationOn()) {
+        alert('You need to enable notifications to receive alerts.');
     }
-};
+}
