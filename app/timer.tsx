@@ -1,71 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Button, StyleSheet } from 'react-native';
 import { ThemedView } from "@/components/ThemedView";
-import { startIntervalTimer, pauseTimer, resumeTimer, stopTimer, getTimerStatus } from '../hooks/useTimer';
 
-import { useRouter} from "expo-router";
+import { useRouter } from "expo-router";
 import { useRouteInfo } from "expo-router/build/hooks";
 
-export default function Timer() {
+import {
+  startIntervalTimer,
+  pauseIntervalTimer,
+  resumeIntervalTimer,
+  stopIntervalTimer,
+  getTimerValue,
+} from '../hooks/useTimer';
 
-    const [remainingTime, setRemainingTime] = useState<number | null>(null);
-    const [isPaused, setIsPaused] = useState<boolean>(false);
+export default function Timer() {
 
     const router = useRouter();
     const route = useRouteInfo();
 
-    const { work,nap } = route.params;
+    const [timeLeft, setTimeLeft] = useState(0);
+    const [isWorkingState, setIsWorkingState] = useState(true);
+
+    const { work, nap } = route.params;
 
     useEffect(() => {
 
-        if (typeof work === "string" && typeof nap === "string") {
-            startIntervalTimer(parseInt(work), parseInt(nap));
-        }
+       startIntervalTimer(work, nap);
 
-        const checkTimer = async (): Promise<void> => {
-            const status = await getTimerStatus();
-            setRemainingTime(status.remainingTime);
-            setIsPaused(status.isPaused);
-        };
+       const updateTimer = () => {
+           const timerValue = getTimerValue();
+           setTimeLeft(timerValue.remainingTime);
+           setIsWorkingState(timerValue.isWorking);
+       };
 
-        checkTimer();
-        const interval = setInterval(checkTimer, 1000);
-        return () => clearInterval(interval);
-    }, []);
+       const intervalId = setInterval(updateTimer, 1000);
 
+       return () => {
+          clearInterval(intervalId);
+          stopIntervalTimer();
+       };
+      }, []);
 
-    const handlePauseResumeTimer = (): void => {
-        if (isPaused) {
-            resumeTimer();
-            setIsPaused(false);
-        } else {
-            pauseTimer();
-            setIsPaused(true);
-        }
-    };
-
-    return (
-        <ThemedView style={styles.container}>
-            <Text>
-                {remainingTime !== null
-                    ? `Time remaining: ${remainingTime} seconds`
-                    : 'No active timer'}
-            </Text>
-            {remainingTime !== null && (
-                <Button
-                    title={isPaused ? "Resume Timer" : "Pause Timer"}
-                    onPress={handlePauseResumeTimer}
-                />
-            )}
-            <Button title="Stop Timer" onPress={stopTimer} />
+      return (
+        <ThemedView style={{ padding: 20 }}>
+          <Text style={{ fontSize: 32 }}>
+            {`${Math.floor(timeLeft / 60)}:${String(timeLeft % 60).padStart(2, '0')}`}
+          </Text>
+          <Text style={{ fontSize: 20 }}>
+            {isWorkingState ? 'Working' : 'Napping'}
+          </Text>
+          <Button title="Pause" onPress={pauseIntervalTimer} />
+          <Button title="Resume" onPress={resumeIntervalTimer} />
+          <Button title="Stop" onPress={() => router.push({ pathname: '/'})}/>
         </ThemedView>
-    );
-};
+      );
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
+}

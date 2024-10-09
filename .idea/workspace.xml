@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
+    <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Le home screen est bon">
-      <change afterPath="$PROJECT_DIR$/hooks/useTimer.ts" afterDir="false" />
+    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Save du hook timer">
+      <change afterPath="$PROJECT_DIR$/eas.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useNotification.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/usePermission.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/timer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/timer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useTimer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useTimer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
@@ -16,6 +19,9 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -52,14 +58,21 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/mael-mainsard/Documents/pomodoro/app&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/home/mael-mainsard/Documents/pomodoro/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -88,7 +101,10 @@
       <workItem from="1728390030015" duration="464000" />
       <workItem from="1728390498784" duration="5789000" />
       <workItem from="1728405210862" duration="2539000" />
-      <workItem from="1728453949598" duration="3078000" />
+      <workItem from="1728453949598" duration="7945000" />
+      <workItem from="1728461900718" duration="194000" />
+      <workItem from="1728462149458" duration="6189000" />
+      <workItem from="1728472883641" duration="984000" />
     </task>
     <task id="LOCAL-00001" summary="Le home screen est bon">
       <option name="closed" value="true" />
@@ -98,7 +114,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728391362965</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Save du hook timer">
+      <option name="closed" value="true" />
+      <created>1728457204302</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728457204302</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -106,6 +130,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Le home screen est bon" />
-    <option name="LAST_COMMIT_MESSAGE" value="Le home screen est bon" />
+    <MESSAGE value="Save du hook timer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Save du hook timer" />
   </component>
 </project>
