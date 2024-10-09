@@ -10,13 +10,13 @@ export default function HomeScreen() {
             <View style={styles.buttons_group}>
                 <TouchableOpacity
                     style={styles.buttonContainer}
-                    onPress={() => router.push({ pathname: '/timer', params: { mode: 45/15 } })}
+                    onPress={() => router.push({ pathname: '/timer', params: { work: 5, nap: 5 } })}
                 >
                     <Text style={styles.buttonText}>45/15</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonContainer}
-                    onPress={() => router.push({ pathname: '/timer', params: { mode: 25/5 } })}
+                    onPress={() => router.push({ pathname: '/timer', params: { work: 25, nap: 5 } })}
                 >
                     <Text style={styles.buttonText}>25/5</Text>
                 </TouchableOpacity>
