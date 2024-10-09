@@ -1,38 +1,44 @@
 import BackgroundTimer from 'react-native-background-timer';
-import {use}
+import { scheduleNotification } from './useNotification';
+
 let timer: number;
 let isWorking = true;
 let remainingTime = 0;
 let workDuration = 0;
 let napDuration = 0;
 let isPaused = false;
+let onTickCallback: (() => void) | null = null;
+let isTimerActive = false; // Nouvelle variable d'état
 
-export function startIntervalTimer(work: number, nap: number): void {
-  workDuration = work*60;
-  napDuration = nap*60;
+export function startIntervalTimer(work: number, nap: number, onTick: () => void): void {
+  workDuration = work;
+  napDuration = nap;
   remainingTime = workDuration;
   isWorking = true;
   isPaused = false;
+  onTickCallback = onTick;
+  isTimerActive = true; // Le timer est maintenant actif
 
   if (timer) {
     BackgroundTimer.clearInterval(timer);
   }
 
-  timer = BackgroundTimer.setInterval(() => {
-    if (!isPaused) {
+  timer = BackgroundTimer.setInterval(async () => {
+    if (!isPaused && isTimerActive) { // Vérifier si le timer est actif
       if (remainingTime > 0) {
         remainingTime--;
       } else {
         if (isWorking) {
-          console.log("Work period finished. Starting nap period.");
+          await scheduleNotification("Work period finished. Starting nap period.");
           isWorking = false;
           remainingTime = napDuration;
         } else {
-          console.log("Nap period finished. Starting work period.");
+          await scheduleNotification("Nap period finished. Starting work period.");
           isWorking = true;
           remainingTime = workDuration;
         }
       }
+      if (onTickCallback) onTickCallback();
     }
   }, 1000);
 }
@@ -48,10 +54,13 @@ export function resumeIntervalTimer(): void {
 export function stopIntervalTimer(): void {
   if (timer) {
     BackgroundTimer.clearInterval(timer);
+    timer = 0; // Réinitialiser le timer
   }
-  timer = 0;
   remainingTime = 0;
   isPaused = false;
+  isWorking = true; // Réinitialiser le statut de travail
+  isTimerActive = false; // Le timer n'est plus actif
+  if (onTickCallback) onTickCallback();
 }
 
 export function getTimerValue(): { remainingTime: number; isWorking: boolean } {
