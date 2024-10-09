@@ -24,23 +24,23 @@ export function startIntervalTimer(work: number, nap: number, onTick: () => void
   }
 
   timer = BackgroundTimer.setInterval(async () => {
-    if (!isPaused && isTimerActive) { // Vérifier si le timer est actif
-      if (remainingTime > 0) {
-        remainingTime--;
-      } else {
-        if (isWorking) {
-          await scheduleNotification("Work period finished. Starting nap period.");
-          isWorking = false;
-          remainingTime = napDuration;
+    if (!isPaused && isTimerActive) {
+        if (remainingTime > 0) {
+            remainingTime--;
         } else {
-          await scheduleNotification("Nap period finished. Starting work period.");
-          isWorking = true;
-          remainingTime = workDuration;
+            const notificationMessage = isWorking
+                ? "Work period finished. Starting nap period."
+                : "Nap period finished. Starting work period.";
+
+            scheduleNotification(notificationMessage);
+
+            // Changer de période
+            isWorking = !isWorking;
+            remainingTime = isWorking ? workDuration : napDuration;
         }
-      }
-      if (onTickCallback) onTickCallback();
+        if (onTickCallback) onTickCallback();
     }
-  }, 1000);
+}, 1000);
 }
 
 export function pauseIntervalTimer(): void {
