@@ -4,39 +4,32 @@ Notifications.setNotificationHandler({
     handleNotification: async () => ({
         shouldShowAlert: true,
         shouldPlaySound: true,
-        shouldSetBadge: false,
+        shouldSetBadge: true,
     }),
 });
 
-export async function requestNotificationPermissions() {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-        console.log('Permission for notifications not granted!');
-        return false;
-    }
-    return true;
-}
+Notifications.setNotificationChannelAsync('general', {
+    name: 'Times Up !',
+    importance: Notifications.AndroidImportance.MAX,
+    vibrationPattern: [],
+    sound: 'notification.wav',
+});
 
-export async function scheduleNotification(message: string) {
-    const hasPermission = await requestNotificationPermissions();
-    if (!hasPermission) return;
 
-    await Notifications.scheduleNotificationAsync({
+export function scheduleNotification(msg: string): void {
+
+    Notifications.scheduleNotificationAsync({
         content: {
             title: "Pomodoro Timer",
-            body: message,
-            sound: true,
-            priority: Notifications.AndroidNotificationPriority.HIGH,
+            body: msg,
+            vibrate: [],
+            sound: "notification.wav",
+            priority: Notifications.AndroidNotificationPriority.MAX,
         },
-        trigger: null,
+        trigger: {
+            seconds: 2,
+            channelId: 'general',
+            repeats: false
+        }
     });
-}
-
-export async function cancelAllScheduledNotifications() {
-    await Notifications.cancelAllScheduledNotificationsAsync();
 }
