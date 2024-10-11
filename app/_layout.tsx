@@ -30,7 +30,8 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="index" options={{ title: 'Pomoboro',  headerTitleAlign: 'center'  }} />
-        <Stack.Screen name="timer" options={{ title: 'Timer', headerShown: false }} />
+        <Stack.Screen name="timer" options={{ title: 'Timer', headerTitleAlign: 'center' }} />
+        <Stack.Screen name="history" options={{ title: 'History', headerTitleAlign: 'center' }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

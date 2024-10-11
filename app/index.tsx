@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { askAllPermission } from '../hooks/usePermission';
 import {useEffect} from "react";
 
+
 export default function HomeScreen() {
     const router = useRouter();
 
@@ -26,6 +27,12 @@ export default function HomeScreen() {
                     onPress={() => router.push({ pathname: '/timer', params: { work: 25, nap: 5 } })}
                 >
                     <Text style={styles.buttonText}>25/5</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.buttonContainer}
+                    onPress={() => router.push({ pathname: '/history'})}
+                >
+                    <Text style={styles.buttonText}>go to history</Text>
                 </TouchableOpacity>
             </View>
         </ThemedView>
