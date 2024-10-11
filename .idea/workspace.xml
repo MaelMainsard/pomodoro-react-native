@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Notification work in backgroud too">
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Change tsconfig">
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +113,7 @@
       <workItem from="1728554699478" duration="29000" />
       <workItem from="1728630064962" duration="429000" />
       <workItem from="1728630961365" duration="613000" />
-      <workItem from="1728634351443" duration="239000" />
+      <workItem from="1728634351443" duration="378000" />
     </task>
     <task id="LOCAL-00001" summary="Le home screen est bon">
       <option name="closed" value="true" />
@@ -161,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728506982798</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Change tsconfig">
+      <option name="closed" value="true" />
+      <created>1728634606675</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728634606675</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +184,7 @@
     <MESSAGE value="Notification work" />
     <MESSAGE value="Permission work" />
     <MESSAGE value="Notification work in backgroud too" />
-    <option name="LAST_COMMIT_MESSAGE" value="Notification work in backgroud too" />
+    <MESSAGE value="Change tsconfig" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change tsconfig" />
   </component>
 </project>

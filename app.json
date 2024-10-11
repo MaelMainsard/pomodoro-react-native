@@ -23,6 +23,7 @@
       "bundleIdentifier": "com.maelsymeon.pomodoro"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/global_icon.png"
       },
