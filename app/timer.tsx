@@ -10,14 +10,17 @@ import {
 
 import { useRouter } from "expo-router";
 import { useRouteInfo } from "expo-router/build/hooks";
+import {ThemedView} from "@/components/ThemedView";
+import {ThemedText} from "@/components/ThemedText";
+import {ThemedButton} from "@/components/ThemedButton";
 
 export default function Timer() {
 
     const router = useRouter();
     const route = useRouteInfo();
     const { work, nap } = route.params;
-    const work_duration:number = typeof work === 'string' ? parseInt(work) : 0;
-    const nap_duration:number = typeof nap === 'string' ? parseInt(nap) : 0;
+    const work_duration:number = typeof work === 'string' ? parseInt(work)*60 : 0;
+    const nap_duration:number = typeof nap === 'string' ? parseInt(nap)*60 : 0;
 
 
     const [timerValue, setTimerValue] = useState({ remainingTime: work_duration, isWorking: true });
@@ -46,36 +49,31 @@ export default function Timer() {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.timerText}>{formatTime(timerValue.remainingTime)}</Text>
-            <Text style={styles.statusText}>{timerValue.isWorking ? 'Working' : 'Resting'}</Text>
+        <ThemedView style={styles.container}>
+            <ThemedText type="enormous">
+                {formatTime(timerValue.remainingTime)}
+            </ThemedText>
+            <ThemedText type="title">{timerValue.isWorking ? 'En travail' : 'En repos'}</ThemedText>
             <View style={styles.buttonContainer}>
-                <Button title="Pause" onPress={pauseIntervalTimer} />
-                <Button title="Resume" onPress={resumeIntervalTimer} />
-                <Button title="Stop"  onPress={redirect}/>
+                <ThemedButton title="Pause" variant="stop" onPress={pauseIntervalTimer} />
+                <ThemedButton title="Resume" variant="resume" onPress={resumeIntervalTimer} />
+                <ThemedButton title="Stop" variant="danger"  onPress={redirect}/>
             </View>
-        </View>
+        </ThemedView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
-    },
-    timerText: {
-        fontSize: 48,
-        fontWeight: 'bold',
-    },
-    statusText: {
-        fontSize: 24,
-        marginTop: 10,
+        paddingVertical: 20,
+        marginVertical: 50,
     },
     buttonContainer: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-around',
-        width: '100%',
-        marginTop: 20,
+        width: '80%',
     },
 });

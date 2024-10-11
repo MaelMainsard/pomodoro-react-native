@@ -1,7 +1,6 @@
 import {GoogleSignin, SignInResponse, SignInSilentlyResponse} from '@react-native-google-signin/google-signin';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { config } from 'dotenv';
-config();
+import { WEB_CLIENT_ID } from '@env';
 
 // --------------------------------------------------------------
 // Explication du workflow du SSO Google
@@ -21,9 +20,19 @@ export enum SignInWithGoogleResTypes {
     LOGIN_POPUP_FAILURE = 'LOGIN_POPUP_FAILURE',
 }
 
-export interface SignInWithGoogleResResponse {
+export enum SignOutWithGoogleResTypes {
+    SIGN_OUT_SUCESS = 'SIGN_OUT_SUCESS',
+    SIGN_OUT_FAILURE = 'SIGN_OUT_FAILURE',
+}
+
+export interface SignInWithGoogleResponse {
     type: SignInWithGoogleResTypes;
     user_info?: FirebaseAuthTypes.UserCredential;
+    error_msg?: string;
+}
+
+export interface SignOutWithGoogleResResponse {
+    type: SignOutWithGoogleResTypes;
     error_msg?: string;
 }
 
@@ -31,7 +40,7 @@ export interface SignInWithGoogleResResponse {
 
 GoogleSignin.configure({
     offlineAccess: true,
-    webClientId: process.env.WEB_CLIENT_ID,
+    webClientId: WEB_CLIENT_ID,
     scopes: ['profile', 'email'],
 });
 
@@ -39,7 +48,7 @@ GoogleSignin.configure({
 // Cette fonction permet à l'application de connecter l'utilisateur sans qu'il ait à faire quoi que ce soit
 // -------------------------------------------------------------------------------------------------------
 
-export async function signInWithGoogleSilently(): Promise<SignInWithGoogleResResponse> {
+export async function signInWithGoogleSilently(): Promise<SignInWithGoogleResponse> {
     try {
         const userInfo: SignInSilentlyResponse = await GoogleSignin.signInSilently();
         if (userInfo.type === "success") {
@@ -68,7 +77,7 @@ export async function signInWithGoogleSilently(): Promise<SignInWithGoogleResRes
 // et de choisit son compte google pour continuer
 // -------------------------------------------------------------------------------------------------
 
-export async function signInWithGoogle():Promise<SignInWithGoogleResResponse>  {
+export async function signInWithGoogle():Promise<SignInWithGoogleResponse>  {
 
     try {
         const userInfo:SignInResponse = await GoogleSignin.signIn();
@@ -98,12 +107,18 @@ export async function signInWithGoogle():Promise<SignInWithGoogleResResponse>  {
 // Cette fonctio permet de ce déconnecté de google et de firebase
 // --------------------------------------------------------------
 
-export async function signOutWithGoogle() {
+export async function signOutWithGoogle():Promise<SignOutWithGoogleResResponse> {
     try {
-        
+        await GoogleSignin.signOut();
+        await auth().signOut();
+        return {
+            type: SignOutWithGoogleResTypes.SIGN_OUT_SUCESS
+        }
     } catch (error) {
-        
+        return {
+            type: SignOutWithGoogleResTypes.SIGN_OUT_FAILURE,
+            error_msg: error.toString(),
+        }
     }
-    await GoogleSignin.signOut();
-    await auth().signOut();
+
 }

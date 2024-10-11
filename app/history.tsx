@@ -1,21 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import {Text, TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native';
-import { signInWithGoogleSilently, signInWithGoogle, signOutWithGoogle } from "@/hooks/useGoogleAuth";
-import { ThemedView } from "@/components/ThemedView";
-import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
-import {FirebaseAuthTypes} from "@react-native-firebase/auth";
-import { addSession } from "../hooks/useFirestore";
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {ThemedView} from "@/components/ThemedView";
+import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
+
+import {
+    signInWithGoogle,
+    SignInWithGoogleResponse,
+    SignInWithGoogleResTypes,
+    signInWithGoogleSilently,
+    signOutWithGoogle,
+    SignOutWithGoogleResResponse,
+    SignOutWithGoogleResTypes
+} from "@/hooks/useGoogleAuth";
 
 export default function History() {
 
-    const [userInfo, setUserInfo] = useState<FirebaseAuthTypes.UserCredential | null>(null);
-    const [isSignInSilently, setIsSignInSilently] = useState(true);
+    const [signInResponse, setSignInResponse] = useState<SignInWithGoogleResponse | undefined>(undefined);
 
     useEffect(() => {
         const signInSilently = async () => {
-            const user = await signInWithGoogleSilently();
-            setUserInfo(user);
-            setIsSignInSilently(false);
+            const response:SignInWithGoogleResponse = await signInWithGoogleSilently();
+            if(response.type === SignInWithGoogleResTypes.LOGIN_SILENT_FAILURE) {
+                alert(`Un problème est survenu lors de la connexion siliencieuse : ${response.error_msg}`);
+            }
+            else {
+                setSignInResponse(response);
+            }
         };
 
         signInSilently();
@@ -23,42 +33,38 @@ export default function History() {
         return () => {};
     }, []);
 
+    const logInWithGoogle = async () => {
+        const response:SignInWithGoogleResponse = await signInWithGoogle();
+        if(response.type === SignInWithGoogleResTypes.LOGIN_POPUP_SUCCESS){
+            setSignInResponse(response);
+        }
+        else if(response.type == SignInWithGoogleResTypes.LOGIN_SILENT_FAILURE) {
+            alert(`Un problème est survenu lors de la connexion à google : ${response.error_msg}`);
+        }
+    }
+
+    const logOutWithGoogle = async () => {
+        const response:SignOutWithGoogleResResponse = await signOutWithGoogle();
+        if(response.type === SignOutWithGoogleResTypes.SIGN_OUT_SUCESS){
+            const signInResponse = {type: SignInWithGoogleResTypes.LOGIN_SILENT_NO_CREDENTIAL};
+            setSignInResponse(signInResponse);
+        }
+        else {
+            alert(`Un problème est survenu lors de la déconnexion : ${response.error_msg}`);
+        }
+    }
+
+
     return (
         <ThemedView style={styles.screen}>
-            {isSignInSilently ? (
+            {signInResponse === undefined ? (
                 <ActivityIndicator size="large" color="#0000ff" />
-            ) : userInfo ? (
-                <ThemedView>
-                    <Text style={styles.welcomeText}>
-                        Welcome, {userInfo.user?.displayName}!
-                    </Text>
-                    <TouchableOpacity
-                        style={styles.buttonContainer}
-                        onPress={async () => {
-                            await signOutWithGoogle();
-                            setUserInfo(null);
-                        }}
-                    >
-                        <Text style={styles.buttonText}>Logout</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.buttonContainer}
-                        onPress={async () => {
-                            addSession(userInfo.user?.uid);
-                        }}
-                    >
-                        <Text style={styles.buttonText}>Add session</Text>
-                    </TouchableOpacity>
-                </ThemedView>
+            ) : signInResponse.type == SignInWithGoogleResTypes.LOGIN_SILENT_SUCCESS || signInResponse.type == SignInWithGoogleResTypes.LOGIN_POPUP_SUCCESS ? (
+                <TouchableOpacity style={styles.buttonContainer} onPress={logOutWithGoogle}>
+                    <Text style={styles.buttonText}>Logout</Text>
+                </TouchableOpacity>
             ) : (
-                <GoogleSigninButton
-                    onPress={async () => {
-                        const user = await signInWithGoogle();
-                        if (user !== null) {
-                            setUserInfo(user);
-                        }
-                    }}
-                />
+                <GoogleSigninButton onPress={logInWithGoogle}/>
             )}
         </ThemedView>
     );

@@ -8,7 +8,7 @@ let workDuration = 0;
 let napDuration = 0;
 let isPaused = false;
 let onTickCallback: (() => void) | null = null;
-let isTimerActive = false; // Nouvelle variable d'état
+let isTimerActive = false;
 
 export function startIntervalTimer(work: number, nap: number, onTick: () => void): void {
   workDuration = work;
@@ -34,7 +34,6 @@ export function startIntervalTimer(work: number, nap: number, onTick: () => void
 
             scheduleNotification(notificationMessage);
 
-            // Changer de période
             isWorking = !isWorking;
             remainingTime = isWorking ? workDuration : napDuration;
         }
@@ -54,12 +53,12 @@ export function resumeIntervalTimer(): void {
 export function stopIntervalTimer(): void {
   if (timer) {
     BackgroundTimer.clearInterval(timer);
-    timer = 0; // Réinitialiser le timer
+    timer = 0;
   }
   remainingTime = 0;
   isPaused = false;
-  isWorking = true; // Réinitialiser le statut de travail
-  isTimerActive = false; // Le timer n'est plus actif
+  isWorking = true;
+  isTimerActive = false;
   if (onTickCallback) onTickCallback();
 }
 
