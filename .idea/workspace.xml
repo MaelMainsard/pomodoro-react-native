@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Add of google-services.json">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useFirestore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/history.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/history.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hooks/useGoogleAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useGoogleAuth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +73,7 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "configurable.group.language",
     "show.migrate.to.gradle.popup": "false",
-    "ts.external.directory.path": "/home/mael-mainsard/.local/share/JetBrains/Toolbox/apps/webstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "/home/mael-mainsard/Documents/pomodoro-react-native/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -118,6 +120,7 @@
       <workItem from="1728630064962" duration="429000" />
       <workItem from="1728630961365" duration="613000" />
       <workItem from="1728634351443" duration="1131000" />
+      <workItem from="1728636823926" duration="5570000" />
     </task>
     <task id="LOCAL-00001" summary="Le home screen est bon">
       <option name="closed" value="true" />

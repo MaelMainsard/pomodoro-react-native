@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {Text, TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native';
 import { signInWithGoogleSilently, signInWithGoogle, signOutWithGoogle } from "@/hooks/useGoogleAuth";
 import { ThemedView } from "@/components/ThemedView";
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import {FirebaseAuthTypes} from "@react-native-firebase/auth";
+import { addSession } from "../hooks/useFirestore";
 
 export default function History() {
 
     const [userInfo, setUserInfo] = useState<FirebaseAuthTypes.UserCredential | null>(null);
+    const [isSignInSilently, setIsSignInSilently] = useState(true);
 
     useEffect(() => {
         const signInSilently = async () => {
             const user = await signInWithGoogleSilently();
             setUserInfo(user);
+            setIsSignInSilently(false);
         };
 
         signInSilently();
@@ -22,7 +25,9 @@ export default function History() {
 
     return (
         <ThemedView style={styles.screen}>
-            { userInfo ? (
+            {isSignInSilently ? (
+                <ActivityIndicator size="large" color="#0000ff" />
+            ) : userInfo ? (
                 <ThemedView>
                     <Text style={styles.welcomeText}>
                         Welcome, {userInfo.user?.displayName}!
@@ -35,6 +40,14 @@ export default function History() {
                         }}
                     >
                         <Text style={styles.buttonText}>Logout</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.buttonContainer}
+                        onPress={async () => {
+                            addSession(userInfo.user?.uid);
+                        }}
+                    >
+                        <Text style={styles.buttonText}>Add session</Text>
                     </TouchableOpacity>
                 </ThemedView>
             ) : (
