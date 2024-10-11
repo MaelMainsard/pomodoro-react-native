@@ -6,20 +6,23 @@ import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import {FirebaseAuthTypes} from "@react-native-firebase/auth";
 
 export default function History() {
-    const [isLoginSilent, setIsLoginSilent] = useState(true);
+
     const [userInfo, setUserInfo] = useState<FirebaseAuthTypes.UserCredential | null>(null);
 
-    useEffect(async () => {
-        const user = await signInWithGoogleSilently();
-        setUserInfo(user);
-        setIsLoginSilent(false);
+    useEffect(() => {
+        const signInSilently = async () => {
+            const user = await signInWithGoogleSilently();
+            setUserInfo(user);
+        };
+
+        signInSilently();
+
+        return () => {};
     }, []);
 
     return (
         <ThemedView style={styles.screen}>
-            {isLoginSilent ? (
-                <Text>Loading</Text>
-            ) : userInfo ? (
+            { userInfo ? (
                 <ThemedView>
                     <Text style={styles.welcomeText}>
                         Welcome, {userInfo.user?.displayName}!
