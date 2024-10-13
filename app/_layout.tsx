@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { TimerProvider } from '../components/TimerContext';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -28,12 +29,14 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" options={{ title: 'Pomoboro',  headerTitleAlign: 'center'  }} />
-        <Stack.Screen name="timer" options={{ title: 'Timer', headerTitleAlign: 'center' }} />
-        <Stack.Screen name="history" options={{ title: 'History', headerTitleAlign: 'center' }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <TimerProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ title: 'Pomoboro',  headerTitleAlign: 'center', headerLeft: () => null  }} />
+          <Stack.Screen name="timer" options={{ title: 'Timer', headerTitleAlign: 'center' }} />
+          <Stack.Screen name="history" options={{ title: 'History', headerTitleAlign: 'center' }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </TimerProvider>
     </ThemeProvider>
   );
 }

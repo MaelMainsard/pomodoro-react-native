@@ -1,6 +1,5 @@
 import {GoogleSignin, SignInResponse, SignInSilentlyResponse} from '@react-native-google-signin/google-signin';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { WEB_CLIENT_ID } from '@env';
 
 // --------------------------------------------------------------
 // Explication du workflow du SSO Google
@@ -36,11 +35,11 @@ export interface SignOutWithGoogleResResponse {
     error_msg?: string;
 }
 
-// Ici on configure le sso google
+// Ici on configure le sso google, pour récupérer
 
 GoogleSignin.configure({
     offlineAccess: true,
-    webClientId: WEB_CLIENT_ID,
+    webClientId: "421858371890-klbs1rofpjr3ff0iscejev0i3r5isedm.apps.googleusercontent.com",
     scopes: ['profile', 'email'],
 });
 

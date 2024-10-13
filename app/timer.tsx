@@ -1,40 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import {
-    startIntervalTimer,
-    pauseIntervalTimer,
-    resumeIntervalTimer,
-    stopIntervalTimer,
-    getTimerValue
-} from '../hooks/useTimer';
 
 import { useRouter } from "expo-router";
 import { useRouteInfo } from "expo-router/build/hooks";
 import {ThemedView} from "@/components/ThemedView";
 import {ThemedText} from "@/components/ThemedText";
 import {ThemedButton} from "@/components/ThemedButton";
+import { useTimer, TimerPhase } from '../components/TimerContext';
 
 export default function Timer() {
+
+    const {
+        startTimer,
+        pauseTimer,
+        resumeTimer,
+        stopTimer,
+        remainingTime,
+        currentPhase,
+        isTimerRunning,
+    } = useTimer();
 
     const router = useRouter();
     const route = useRouteInfo();
     const { work, nap } = route.params;
-    const work_duration:number = typeof work === 'string' ? parseInt(work)*60 : 0;
-    const nap_duration:number = typeof nap === 'string' ? parseInt(nap)*60 : 0;
-
-
-    const [timerValue, setTimerValue] = useState({ remainingTime: work_duration, isWorking: true });
+    const work_duration:number = typeof work === 'string' ? parseInt(work) : 0;
+    const nap_duration:number = typeof nap === 'string' ? parseInt(nap) : 0;
 
     useEffect(() => {
-        const updateTimer = () => {
-            setTimerValue(getTimerValue());
-        };
-
-        startIntervalTimer(work_duration, nap_duration, updateTimer); // 30 minutes de travail, 5 minutes de pause
-
-        return () => {
-            stopIntervalTimer();
-        };
+        if(!isTimerRunning){
+            startTimer(work_duration,nap_duration);
+        }
     }, []);
 
     const formatTime = (seconds: number): string => {
@@ -44,19 +39,19 @@ export default function Timer() {
     };
 
     const redirect = async (): Promise<void> => {
-        await stopIntervalTimer();
+        stopTimer();
         router.push({pathname: '/'});
     }
 
     return (
         <ThemedView style={styles.container}>
             <ThemedText type="enormous">
-                {formatTime(timerValue.remainingTime)}
+                {formatTime(remainingTime)}
             </ThemedText>
-            <ThemedText type="title">{timerValue.isWorking ? 'En travail' : 'En repos'}</ThemedText>
+            <ThemedText type="title">{currentPhase === TimerPhase.IS_WORK ? 'En travail' : 'En repos'}</ThemedText>
             <View style={styles.buttonContainer}>
-                <ThemedButton title="Pause" variant="stop" onPress={pauseIntervalTimer} />
-                <ThemedButton title="Resume" variant="resume" onPress={resumeIntervalTimer} />
+                <ThemedButton title="Pause" variant="stop" onPress={pauseTimer} />
+                <ThemedButton title="Resume" variant="resume" onPress={resumeTimer} />
                 <ThemedButton title="Stop" variant="danger"  onPress={redirect}/>
             </View>
         </ThemedView>
