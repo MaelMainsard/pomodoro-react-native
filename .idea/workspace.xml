@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Changement de l'ui">
-      <change afterPath="$PROJECT_DIR$/components/TimerContext.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hooks/useTimerLogic.ts" afterDir="false" />
+    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Début de fonctionnement du timer dans toutes l'apllication">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/timer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/timer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/babel.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useGoogleAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useGoogleAuth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useTimer.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/reset-project.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useTimerLogic.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useTimerLogic.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +119,7 @@
       <workItem from="1728634351443" duration="1131000" />
       <workItem from="1728636823926" duration="15924000" />
       <workItem from="1728729441748" duration="4488000" />
-      <workItem from="1728812279941" duration="2666000" />
+      <workItem from="1728812279941" duration="2917000" />
     </task>
     <task id="LOCAL-00001" summary="Le home screen est bon">
       <option name="closed" value="true" />
@@ -209,7 +201,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728653027167</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Début de fonctionnement du timer dans toutes l'apllication">
+      <option name="closed" value="true" />
+      <created>1728815048076</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1728815048076</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +226,7 @@
     <MESSAGE value="Add of google-services.json" />
     <MESSAGE value="Changerment du authGoogle en typeScript" />
     <MESSAGE value="Changement de l'ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changement de l'ui" />
+    <MESSAGE value="Début de fonctionnement du timer dans toutes l'apllication" />
+    <option name="LAST_COMMIT_MESSAGE" value="Début de fonctionnement du timer dans toutes l'apllication" />
   </component>
 </project>

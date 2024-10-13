@@ -23,11 +23,13 @@ export const useTimerLogic = (): UseTimerLogicType => {
     const currentPhase: MutableRefObject<TimerPhase> = useRef(TimerPhase.IS_WORK);
     const isTimerActive: MutableRefObject<boolean> = useRef(false);
     const isPaused: MutableRefObject<boolean> = useRef(false);
-    const workDuration:MutableRefObject<number> = useRef<number>(0);
-    const napDuration:MutableRefObject<number> = useRef<number>(0);
-    const timerRef:MutableRefObject<number | null> = useRef<number | null>(null);
+    const workDuration: MutableRefObject<number> = useRef<number>(0);
+    const napDuration: MutableRefObject<number> = useRef<number>(0);
+    const timerRef: MutableRefObject<number | null> = useRef<number | null>(null);
 
     const startTimer = (work: number, nap: number) => {
+        workDuration.current = work;
+        napDuration.current = nap;
         isTimerActive.current = true;
         setRemainingTime(work);
         currentPhase.current = TimerPhase.IS_WORK;
@@ -38,17 +40,34 @@ export const useTimerLogic = (): UseTimerLogicType => {
     const runTimer = () => {
         timerRef.current = BackgroundTimer.setInterval(() => {
             if (!isPaused.current) {
-                setRemainingTime(prev => prev - 1);
+                setRemainingTime((prevRemainingTime) => {
+                    // On décrémente le temps restant
+                    const newTime = prevRemainingTime - 1;
 
-                if (remainingTime <= 0) {
-                    const notificationMessage = currentPhase.current === TimerPhase.IS_WORK
-                        ? "Work period finished. Starting nap period."
-                        : "Nap period finished. Starting work period.";
+                    // Si le temps est écoulé
+                    if (newTime <= -1) {
+                        const notificationMessage =
+                            currentPhase.current === TimerPhase.IS_WORK
+                                ? "Work period finished. Starting nap period."
+                                : "Nap period finished. Starting work period.";
 
-                    //scheduleNotification(notificationMessage);
-                    currentPhase.current = currentPhase.current === TimerPhase.IS_WORK ? TimerPhase.IS_NAP : TimerPhase.IS_WORK;
-                    setRemainingTime(currentPhase.current === TimerPhase.IS_WORK ? workDuration.current : napDuration.current);
-                }
+                        // Envoyer une notification
+                        // scheduleNotification(notificationMessage);
+
+                        // Changer de phase
+                        currentPhase.current =
+                            currentPhase.current === TimerPhase.IS_WORK
+                                ? TimerPhase.IS_NAP
+                                : TimerPhase.IS_WORK;
+
+                        // Réinitialiser le temps pour la nouvelle phase
+                        return currentPhase.current === TimerPhase.IS_WORK
+                            ? workDuration.current
+                            : napDuration.current;
+                    }
+
+                    return newTime;
+                });
             }
         }, 1000);
     };
