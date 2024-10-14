@@ -1,6 +1,8 @@
 import { useState, useRef, MutableRefObject } from 'react';
 import BackgroundTimer from 'react-native-background-timer';
 import { scheduleNotification } from './useNotification';
+import { Timestamp } from "@react-native-firebase/firestore";
+import { Session } from "@/hooks/useFirestore";
 
 export enum TimerPhase {
     IS_WORK = 'work',
@@ -13,7 +15,11 @@ export type UseTimerLogicType = {
     resumeTimer: () => void;
     stopTimer: () => void;
     isTimerRunning: boolean;
+    startAt: Timestamp;
+    endAt: Timestamp;
     remainingTime: number;
+    globalNapSeconds: number;
+    globalWorkSeconds: number;
     currentPhase: TimerPhase;
 };
 
@@ -26,6 +32,10 @@ export const useTimerLogic = (): UseTimerLogicType => {
     const workDuration: MutableRefObject<number> = useRef<number>(0);
     const napDuration: MutableRefObject<number> = useRef<number>(0);
     const timerRef: MutableRefObject<number | null> = useRef<number | null>(null);
+    const startedAt: MutableRefObject<Timestamp | null> = useRef(null);
+    const endAt: MutableRefObject<Timestamp | null> = useRef(null);
+    const globalNapSeconds: MutableRefObject<number> = useRef<number>(0);
+    const globalWorkSeconds: MutableRefObject<number> = useRef<number>(0);
 
     const startTimer = (work: number, nap: number) => {
         workDuration.current = work;
@@ -33,6 +43,7 @@ export const useTimerLogic = (): UseTimerLogicType => {
         isTimerActive.current = true;
         setRemainingTime(work);
         currentPhase.current = TimerPhase.IS_WORK;
+        startedAt.current = Timestamp.now();
         isPaused.current = false;
         runTimer();
     };
@@ -41,26 +52,28 @@ export const useTimerLogic = (): UseTimerLogicType => {
         timerRef.current = BackgroundTimer.setInterval(() => {
             if (!isPaused.current) {
                 setRemainingTime((prevRemainingTime) => {
-                    // On décrémente le temps restant
                     const newTime = prevRemainingTime - 1;
 
-                    // Si le temps est écoulé
+                    if(currentPhase.current === TimerPhase.IS_WORK){
+                        globalWorkSeconds.current += 1;
+                    }
+                    else{
+                        globalNapSeconds.current -= 1;
+                    }
+
                     if (newTime <= -1) {
                         const notificationMessage =
                             currentPhase.current === TimerPhase.IS_WORK
                                 ? "Work period finished. Starting nap period."
                                 : "Nap period finished. Starting work period.";
 
-                        // Envoyer une notification
-                        // scheduleNotification(notificationMessage);
+                        scheduleNotification(notificationMessage);
 
-                        // Changer de phase
                         currentPhase.current =
                             currentPhase.current === TimerPhase.IS_WORK
                                 ? TimerPhase.IS_NAP
                                 : TimerPhase.IS_WORK;
 
-                        // Réinitialiser le temps pour la nouvelle phase
                         return currentPhase.current === TimerPhase.IS_WORK
                             ? workDuration.current
                             : napDuration.current;
@@ -87,7 +100,18 @@ export const useTimerLogic = (): UseTimerLogicType => {
             BackgroundTimer.clearInterval(timerRef.current);
             timerRef.current = null;
         }
+
+        const session: Session = {
+            startedAt: startedAt.current,
+            endedAt: endAt.current,
+            restMinutes: globalNapSeconds.current * 60,
+            workMinutes: globalWorkSeconds.current * 60
+        };
+
         setRemainingTime(0);
+        endAt.current = Timestamp.now();
+        globalWorkSeconds.current = 0;
+        globalNapSeconds.current = 0;
         isPaused.current = false;
         currentPhase.current = TimerPhase.IS_WORK;
         isTimerActive.current = false;
@@ -101,5 +125,9 @@ export const useTimerLogic = (): UseTimerLogicType => {
         isTimerRunning: isTimerActive.current,
         remainingTime: remainingTime,
         currentPhase: currentPhase.current,
+        startAt: startedAt.current,
+        endAt: endAt.current,
+        globalNapSeconds: globalNapSeconds.current,
+        globalWorkSeconds: globalWorkSeconds.current,
     };
 };

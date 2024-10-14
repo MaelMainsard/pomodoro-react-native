@@ -1,65 +1,66 @@
 import { ThemedView } from "@/components/ThemedView";
-import { StyleSheet, View } from "react-native";
+import {ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import { useRouter } from "expo-router";
 import { askAllPermission } from '../hooks/usePermission';
-import { useEffect } from "react";
-import { ThemedButton } from '../components/ThemedButton';
+import React, { useEffect } from "react";
 import { ThemedText } from "@/components/ThemedText";
+import { ThemedContainer } from "@/components/ThemedContainer";
+import { ImagesAssets } from "@/assets/images/ImagesAssets";
+import { GoogleButton } from "@/components/GoogleButton";
+import { UserProfile } from '../components/UserProfile';
+import { useAuth } from "@/context/AuthContext";
+
 
 export default function HomeScreen() {
     const router = useRouter();
+    const { userInfo, isLoading, setUserInfo } = useAuth();
 
     useEffect(() => {
         askAllPermission();
     }, []);
 
+
     return (
         <ThemedView style={styles.screen}>
-            <ThemedText type="subtitle" style={styles.title}>
-                Bienvenue sur pomoboro, choisissez un mode
-            </ThemedText>
-            <View style={styles.buttons_group}>
-                <ThemedButton
-                    title="45/15"
-                    variant="default"
-                    onPress={() => router.push({ pathname: '/timer', params: { work: 45, nap: 15 } })}
-                ></ThemedButton>
-                <ThemedButton
-                    title="25/5"
-                    variant="default"
-                    onPress={() => router.push({ pathname: '/timer', params: { work: 25, nap: 5 } })}
-                ></ThemedButton>
-            </View>
-            <View style={styles.historyButtonContainer}>
-                <ThemedButton
-                    title="Historique"
-                    variant="default"
-                    onPress={() => router.push({ pathname: '/history' })}
-                ></ThemedButton>
-            </View>
+            {isLoading ? (
+                <ActivityIndicator style={styles.loader} size="large" color="#0000ff" />
+            ):userInfo ? (
+                <UserProfile/>
+            ) : (
+                <GoogleButton/>
+
+            )}
+            <ThemedContainer style={styles.container}>
+                <Image source={ImagesAssets.work_img} style={styles.image}/>
+                <ThemedText type="subtitle">
+                    Commencer à travailler
+                </ThemedText>
+            </ThemedContainer>
         </ThemedView>
     );
 }
 
 const styles = StyleSheet.create({
-    title: {
-        textAlign: "center",
-        width: "80%",
-    },
     screen: {
         flex: 1,
-        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    container: {
+        borderRadius: 20,
+        width: '90%',
+        height: "auto",
         alignItems: 'center',
         paddingVertical: 20,
     },
-    buttons_group: {
-        width: '80%',
-        justifyContent: 'center',
-        alignItems: 'center',
+    image : {
+        width: 60,
+        height: 60,
     },
-    historyButtonContainer: {
-        width: '80%',
-        marginBottom: 30,
-        alignItems: 'center',
+    button: {
+        marginTop: 50
+    },
+    loader: {
+        marginTop: 80,
+        marginBottom: 54
     }
 });

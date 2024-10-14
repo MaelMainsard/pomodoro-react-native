@@ -4,8 +4,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { TimerProvider } from '../components/TimerContext';
-
+import { TimerProvider } from '../context/TimerContext';
+import { AuthProvider } from "../context/AuthContext";
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -29,14 +29,16 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <TimerProvider>
-        <Stack>
-          <Stack.Screen name="index" options={{ title: 'Pomoboro',  headerTitleAlign: 'center', headerLeft: () => null  }} />
-          <Stack.Screen name="timer" options={{ title: 'Timer', headerTitleAlign: 'center' }} />
-          <Stack.Screen name="history" options={{ title: 'History', headerTitleAlign: 'center' }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </TimerProvider>
+      <AuthProvider>
+        <TimerProvider>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false   }} />
+            <Stack.Screen name="timer" options={{ headerShown: false   }} />
+            <Stack.Screen name="history" options={{ headerShown: false   }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </TimerProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

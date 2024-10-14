@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import { Timestamp} from "@react-native-firebase/firestore";
 
 export enum AddSessionRes {
     SUCCESS,
@@ -7,14 +8,14 @@ export enum AddSessionRes {
 
 export interface Session {
     id?: string;
-    userId: string;
-    startedAt: Date;
-    createdAt: Date;
+    userId?: string;
+    startedAt: Timestamp;
+    endedAt: Timestamp;
+    restMinutes: number;
+    workMinutes: number;
 }
 
-
-
-export async function addSession(userId: string): Promise<void> {
+export async function sendSession(): Promise<void> {
     await firestore().collection('session').add({
         userId: userId,
         startedAt: "2024-05-31T17:14:24.244Z",

@@ -6,7 +6,7 @@ import { useRouteInfo } from "expo-router/build/hooks";
 import {ThemedView} from "@/components/ThemedView";
 import {ThemedText} from "@/components/ThemedText";
 import {ThemedButton} from "@/components/ThemedButton";
-import { useTimer, TimerPhase } from '../components/TimerContext';
+import { useTimer, TimerPhase } from '../context/TimerContext';
 
 export default function Timer() {
 
@@ -49,11 +49,11 @@ export default function Timer() {
                 {formatTime(remainingTime)}
             </ThemedText>
             <ThemedText type="title">{currentPhase === TimerPhase.IS_WORK ? 'En travail' : 'En repos'}</ThemedText>
-            <View style={styles.buttonContainer}>
+            <ThemedView style={styles.buttonContainer}>
                 <ThemedButton title="Pause" variant="stop" onPress={pauseTimer} />
                 <ThemedButton title="Resume" variant="resume" onPress={resumeTimer} />
                 <ThemedButton title="Stop" variant="danger"  onPress={redirect}/>
-            </View>
+            </ThemedView>
         </ThemedView>
     );
 }
