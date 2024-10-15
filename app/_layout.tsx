@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import {router, Stack, usePathname} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -8,9 +8,7 @@ import { TimerProvider } from '../context/TimerContext';
 import { AuthProvider } from "../context/AuthContext";
 import { useColorScheme } from '@/hooks/useColorScheme';
 import * as Notifications from 'expo-notifications';
-import { router } from 'expo-router';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -18,6 +16,7 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+  const pathname = usePathname();
 
   useEffect(() => {
 
@@ -30,9 +29,10 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
 
+    return ()=>{
+      subscription.remove();
+    }
 
-
-    return () => subscription.remove();
   }, [loaded]);
 
 
@@ -46,11 +46,11 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <AuthProvider>
         <TimerProvider>
-          <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false   }} />
-            <Stack.Screen name="timer" options={{ headerShown: true, headerTransparent: true, headerTitle: '' }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
+            <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false   }} />
+              <Stack.Screen name="timer" options={{ headerShown: true, headerTransparent: true, headerTitle: '' }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
         </TimerProvider>
       </AuthProvider>
     </ThemeProvider>

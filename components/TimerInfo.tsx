@@ -23,7 +23,7 @@ export function TimerInfo() {
                     {currentPhase === TimerPhase.IS_WORK ? "Au boulot !" : "Une pause s'impose"}
                 </ThemedText>
             </View>
-            <ThemedTouch type={currentPhase === TimerPhase.IS_WORK ? 'work' : 'nap'} style={styles.button} onPress={()=>stopTimer(userInfo.user_info.user.uid)}>
+            <ThemedTouch type={currentPhase === TimerPhase.IS_WORK ? 'work' : 'nap'} style={styles.button} onPress={()=>stopTimer(userInfo ? userInfo.user_info.user.uid : null)}>
                 <ThemedText colorType={"text2"}>
                     Terminer la session
                 </ThemedText>

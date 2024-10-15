@@ -119,15 +119,15 @@ export const useTimerLogic = (): UseTimerLogicType => {
         setRemainingTime(0);
         endAt.current = Timestamp.now();
 
-        const session = new SessionModel({
-            userId: userId,
-            startedAt: startedAt.current,
-            endedAt: endAt.current,
-            workMinutes: globalWorkSeconds.current / 60,
-            restMinutes: globalNapSeconds.current / 60
-        });
-
-        const response = addNewSession(session);
+        if(userId) {
+            addNewSession(new SessionModel({
+                userId: userId,
+                startedAt: startedAt.current,
+                endedAt: endAt.current,
+                workMinutes: globalWorkSeconds.current / 60,
+                restMinutes: globalNapSeconds.current / 60
+            }));
+        }
 
         globalWorkSeconds.current = 0;
         globalNapSeconds.current = 0;
