@@ -1,17 +1,26 @@
-import { TimerPhase, useTimer } from '../context/TimerContext';
-import { ThemedView } from "@/components/ThemedView";
+import {TimerPhase, useTimer} from '../context/TimerContext';
+import {ThemedView} from "@/components/ThemedView";
 import {Image, StyleSheet, View} from "react-native";
-import { TimerProgress} from "@/components/TimerProgress";
-import { ImagesAssets } from "@/assets/images/ImagesAssets";
+import {TimerProgress} from "@/components/TimerProgress";
+import {ImagesAssets} from "@/assets/images/ImagesAssets";
 import React from "react";
 import {ThemedText} from "@/components/ThemedText";
 import {ThemedTouch} from "@/components/ThemedTouch";
+import {useAuth} from "@/context/AuthContext";
+import {SessionModel} from "@/database/session.model";
+
 
 export function TimerInfo() {
     const {
+        startAt,
+        endAt,
         stopTimer,
         currentPhase,
+        globalWorkSeconds,
+        globalNapSeconds
     } = useTimer();
+
+    const { userInfo } = useAuth();
 
 
     return (
@@ -23,7 +32,7 @@ export function TimerInfo() {
                     {currentPhase === TimerPhase.IS_WORK ? "Au boulot" : "Une pause s'impose"}
                 </ThemedText>
             </View>
-            <ThemedTouch type={currentPhase === TimerPhase.IS_WORK ? 'work' : 'nap'} style={styles.button} onPress={stopTimer}>
+            <ThemedTouch type={currentPhase === TimerPhase.IS_WORK ? 'work' : 'nap'} style={styles.button} onPress={()=>stopTimer(userInfo.user_info.user.uid)}>
                 <ThemedText white={true}>
                     Terminer la session
                 </ThemedText>

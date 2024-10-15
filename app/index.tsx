@@ -11,14 +11,13 @@ import { useAuth } from "@/context/AuthContext";
 import {ThemedTouch} from "@/components/ThemedTouch";
 import {TimerPhase, useTimer} from "@/context/TimerContext";
 import { Ionicons } from '@expo/vector-icons';
+import { HistoricList } from "@/components/HistoricList";
 
 export default function HomeScreen() {
     const router = useRouter();
+
     const { userInfo, isLoading } = useAuth();
-    const {
-        isTimerRunning,
-        currentPhase,
-    } = useTimer();
+    const {isTimerRunning, currentPhase,} = useTimer();
 
     useEffect(() => {
         askAllPermission();
@@ -35,7 +34,7 @@ export default function HomeScreen() {
                 <GoogleButton/>
 
             )}
-            <ThemedTouch style={[{ alignItems: 'center', flexDirection: isTimerRunning ? 'row' : 'column' },styles.container]} onPress={() => router.push("/timer")}>
+            <ThemedTouch style={[{ flexDirection: isTimerRunning ? 'row' : 'column' },styles.container]} onPress={() => router.push("/timer")}>
                 <View style={{alignItems: isTimerRunning ? 'left' : 'center'}}>
                     <Image source={currentPhase == TimerPhase.IS_WORK ? ImagesAssets.work_img : ImagesAssets.nap_img} style={styles.image}/>
                     <ThemedText type="subtitle" white={true}>
@@ -46,6 +45,7 @@ export default function HomeScreen() {
                     <Ionicons name="chevron-forward-outline" color="white" size={30} />
                 )}
             </ThemedTouch>
+            <HistoricList/>
         </ThemedView>
     );
 }
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
         height: "auto",
         padding: 20,
         color: 'primary',
+        alignItems: 'center',
         display: 'flex',
         justifyContent: 'space-between'
     },

@@ -2,8 +2,8 @@ import { useState, useRef, MutableRefObject } from 'react';
 import BackgroundTimer from 'react-native-background-timer';
 import { scheduleNotification } from './useNotification';
 import { Timestamp } from "@react-native-firebase/firestore";
-import { Session } from "@/hooks/useFirestore";
-import {number} from "prop-types";
+import {addNewSession, NewSessionTypes} from "@/database/session.repository";
+import {SessionModel} from "@/database/session.model";
 
 export enum TimerPhase {
     IS_WORK = 'work',
@@ -19,7 +19,7 @@ export type UseTimerLogicType = {
     startTimer: (work: number, nap: number) => void;
     pauseTimer: () => void;
     resumeTimer: () => void;
-    stopTimer: () => void;
+    stopTimer: (userId:string) => void;
     isTimerRunning: boolean;
     startAt: Timestamp;
     endAt: Timestamp;
@@ -50,15 +50,15 @@ export const useTimerLogic = (): UseTimerLogicType => {
     });
 
     const startTimer = (work: number, nap: number) => {
-        workDuration.current = (work*60)-1;
-        napDuration.current = (nap*60)-1;
+        workDuration.current = work*60;
+        napDuration.current = nap*60;
         isTimerActive.current = true;
         setRemainingTime(workDuration.current);
         currentPhase.current = TimerPhase.IS_WORK;
         startedAt.current = Timestamp.now();
         isPaused.current = false;
-        currentMode.current.WORK = (work*60)-1;
-        currentMode.current.NAP = (nap*60)-1;
+        currentMode.current.WORK = work*60;
+        currentMode.current.NAP = nap*60;
         runTimer();
     };
 
@@ -72,7 +72,7 @@ export const useTimerLogic = (): UseTimerLogicType => {
                         globalWorkSeconds.current += 1;
                     }
                     else{
-                        globalNapSeconds.current -= 1;
+                        globalNapSeconds.current += 1;
                     }
 
                     if (newTime <= 0) {
@@ -109,26 +109,29 @@ export const useTimerLogic = (): UseTimerLogicType => {
         }
     };
 
-    const stopTimer = () => {
+    const stopTimer = (userId: string) => {
         if (timerRef.current !== null) {
             BackgroundTimer.clearInterval(timerRef.current);
             timerRef.current = null;
         }
-
-        const session: Session = {
-            startedAt: startedAt.current,
-            endedAt: endAt.current,
-            restMinutes: globalNapSeconds.current * 60,
-            workMinutes: globalWorkSeconds.current * 60
-        };
-
+        isPaused.current = false;
+        isTimerActive.current = false;
         setRemainingTime(0);
         endAt.current = Timestamp.now();
+
+        const session = new SessionModel({
+            userId: userId,
+            startedAt: startedAt.current,
+            endedAt: endAt.current,
+            workMinutes: globalWorkSeconds.current / 60,
+            restMinutes: globalNapSeconds.current / 60
+        });
+
+        const response = addNewSession(session);
+
         globalWorkSeconds.current = 0;
         globalNapSeconds.current = 0;
-        isPaused.current = false;
         currentPhase.current = TimerPhase.IS_WORK;
-        isTimerActive.current = false;
     };
 
     return {
