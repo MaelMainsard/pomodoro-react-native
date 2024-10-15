@@ -1,19 +1,24 @@
 import { ThemedView } from "@/components/ThemedView";
-import {ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, Image, StyleSheet, View} from "react-native";
 import { useRouter } from "expo-router";
 import { askAllPermission } from '../hooks/usePermission';
 import React, { useEffect } from "react";
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedContainer } from "@/components/ThemedContainer";
 import { ImagesAssets } from "@/assets/images/ImagesAssets";
 import { GoogleButton } from "@/components/GoogleButton";
 import { UserProfile } from '../components/UserProfile';
 import { useAuth } from "@/context/AuthContext";
-
+import {ThemedTouch} from "@/components/ThemedTouch";
+import {TimerPhase, useTimer} from "@/context/TimerContext";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeScreen() {
     const router = useRouter();
-    const { userInfo, isLoading, setUserInfo } = useAuth();
+    const { userInfo, isLoading } = useAuth();
+    const {
+        isTimerRunning,
+        currentPhase,
+    } = useTimer();
 
     useEffect(() => {
         askAllPermission();
@@ -30,12 +35,17 @@ export default function HomeScreen() {
                 <GoogleButton/>
 
             )}
-            <ThemedContainer style={styles.container}>
-                <Image source={ImagesAssets.work_img} style={styles.image}/>
-                <ThemedText type="subtitle">
-                    Commencer à travailler
-                </ThemedText>
-            </ThemedContainer>
+            <ThemedTouch style={[{ alignItems: 'center', flexDirection: isTimerRunning ? 'row' : 'column' },styles.container]} onPress={() => router.push("/timer")}>
+                <View style={{alignItems: isTimerRunning ? 'left' : 'center'}}>
+                    <Image source={currentPhase == TimerPhase.IS_WORK ? ImagesAssets.work_img : ImagesAssets.nap_img} style={styles.image}/>
+                    <ThemedText type="subtitle" white={true}>
+                        {isTimerRunning ? currentPhase == TimerPhase.IS_WORK ? "Au boulot !" : "Une pause s'impose" : "Commencer à travailer"}
+                    </ThemedText>
+                </View>
+                {isTimerRunning && (
+                    <Ionicons name="chevron-forward-outline" color="white" size={30} />
+                )}
+            </ThemedTouch>
         </ThemedView>
     );
 }
@@ -49,8 +59,10 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: '90%',
         height: "auto",
-        alignItems: 'center',
-        paddingVertical: 20,
+        padding: 20,
+        color: 'primary',
+        display: 'flex',
+        justifyContent: 'space-between'
     },
     image : {
         width: 60,

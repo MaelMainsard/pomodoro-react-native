@@ -3,10 +3,16 @@ import BackgroundTimer from 'react-native-background-timer';
 import { scheduleNotification } from './useNotification';
 import { Timestamp } from "@react-native-firebase/firestore";
 import { Session } from "@/hooks/useFirestore";
+import {number} from "prop-types";
 
 export enum TimerPhase {
     IS_WORK = 'work',
     IS_NAP = 'nap',
+}
+
+export type TimerMode = {
+    WORK: number;
+    NAP: number;
 }
 
 export type UseTimerLogicType = {
@@ -21,6 +27,8 @@ export type UseTimerLogicType = {
     globalNapSeconds: number;
     globalWorkSeconds: number;
     currentPhase: TimerPhase;
+    currentMode: TimerMode;
+    isPaused: boolean;
 };
 
 export const useTimerLogic = (): UseTimerLogicType => {
@@ -36,15 +44,21 @@ export const useTimerLogic = (): UseTimerLogicType => {
     const endAt: MutableRefObject<Timestamp | null> = useRef(null);
     const globalNapSeconds: MutableRefObject<number> = useRef<number>(0);
     const globalWorkSeconds: MutableRefObject<number> = useRef<number>(0);
+    const currentMode: MutableRefObject<TimerMode> = useRef<TimerMode>({
+        WORK: 0,
+        NAP: 0
+    });
 
     const startTimer = (work: number, nap: number) => {
-        workDuration.current = work;
-        napDuration.current = nap;
+        workDuration.current = (work*60)-1;
+        napDuration.current = (nap*60)-1;
         isTimerActive.current = true;
-        setRemainingTime(work);
+        setRemainingTime(workDuration.current);
         currentPhase.current = TimerPhase.IS_WORK;
         startedAt.current = Timestamp.now();
         isPaused.current = false;
+        currentMode.current.WORK = (work*60)-1;
+        currentMode.current.NAP = (nap*60)-1;
         runTimer();
     };
 
@@ -61,7 +75,7 @@ export const useTimerLogic = (): UseTimerLogicType => {
                         globalNapSeconds.current -= 1;
                     }
 
-                    if (newTime <= -1) {
+                    if (newTime <= 0) {
                         const notificationMessage =
                             currentPhase.current === TimerPhase.IS_WORK
                                 ? "Work period finished. Starting nap period."
@@ -129,5 +143,7 @@ export const useTimerLogic = (): UseTimerLogicType => {
         endAt: endAt.current,
         globalNapSeconds: globalNapSeconds.current,
         globalWorkSeconds: globalWorkSeconds.current,
+        currentMode: currentMode.current,
+        isPaused: isPaused.current
     };
 };

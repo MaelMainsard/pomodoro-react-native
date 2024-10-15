@@ -5,7 +5,6 @@ import {ThemedView} from "@/components/ThemedView";
 import { Ionicons } from '@expo/vector-icons';
 import {ThemedText} from "@/components/ThemedText";
 import {
-    SignInWithGoogleResTypes,
     signOutWithGoogle,
     SignOutWithGoogleResResponse,
     SignOutWithGoogleResTypes
