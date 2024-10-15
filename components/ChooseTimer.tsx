@@ -1,8 +1,8 @@
-import {ThemedView} from "@/components/ThemedView";
-import {ThemedText} from "@/components/ThemedText";
-import {ThemedTouch} from "@/components/ThemedTouch";
+import {ThemedView} from "@/components/themed/ThemedView";
+import {ThemedText} from "@/components/themed/ThemedText";
+import {ThemedTouch} from "@/components/themed/ThemedTouch";
 import React from "react";
-import {StyleSheet, View} from "react-native";
+import {StyleSheet} from "react-native";
 import {useTimer} from "@/context/TimerContext";
 
 export function ChooseTimer()  {
@@ -10,7 +10,7 @@ export function ChooseTimer()  {
     const { startTimer } = useTimer();
 
     return (
-        <ThemedView style={styles.container}>
+        <ThemedView style={styles.menu}>
             <ThemedText type={"subtitle"} style={{marginBottom: 100}}>Sélectionnez un rythme de travail</ThemedText>
             <ThemedView style={styles.button_group}>
                 <ThemedView style={styles.button}>
@@ -18,16 +18,16 @@ export function ChooseTimer()  {
                     <ThemedText type={"subtitle"}>Pause</ThemedText>
                 </ThemedView>
                 <ThemedTouch style={styles.button} onPress={()=>startTimer(45,15)}>
-                    <ThemedText type={"subtitle"} white={true}>45min</ThemedText>
-                    <ThemedText type={"subtitle"} white={true}>15min</ThemedText>
+                    <ThemedText type={"subtitle"} colorType="text2">45min</ThemedText>
+                    <ThemedText type={"subtitle"} colorType="text2">15min</ThemedText>
                 </ThemedTouch>
                 <ThemedTouch style={styles.button} onPress={()=>startTimer(25,5)}>
-                    <ThemedText type={"subtitle"} white={true}>25min</ThemedText>
-                    <ThemedText type={"subtitle"} white={true}>5min</ThemedText>
+                    <ThemedText type={"subtitle"} colorType="text2">25min</ThemedText>
+                    <ThemedText type={"subtitle"} colorType="text2">5min</ThemedText>
                 </ThemedTouch>
                 <ThemedTouch style={styles.button} onPress={()=>startTimer(1,1)}>
-                    <ThemedText type={"subtitle"} white={true}>1min</ThemedText>
-                    <ThemedText type={"subtitle"} white={true}>1min</ThemedText>
+                    <ThemedText type={"subtitle"} colorType="text2">1min</ThemedText>
+                    <ThemedText type={"subtitle"} colorType="text2">1min</ThemedText>
                 </ThemedTouch>
             </ThemedView>
         </ThemedView>
@@ -35,7 +35,7 @@ export function ChooseTimer()  {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    menu: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',

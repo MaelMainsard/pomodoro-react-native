@@ -1,14 +1,14 @@
 import {useAuth} from "@/context/AuthContext";
 import {StyleSheet} from "react-native";
 import UserAvatar from 'react-native-user-avatar';
-import {ThemedView} from "@/components/ThemedView";
-import { Ionicons } from '@expo/vector-icons';
-import {ThemedText} from "@/components/ThemedText";
+import {ThemedView} from "@/components/themed/ThemedView";
+import {ThemedText} from "@/components/themed/ThemedText";
 import {
     signOutWithGoogle,
     SignOutWithGoogleResResponse,
     SignOutWithGoogleResTypes
 } from "@/hooks/useGoogleAuth";
+import {ThemedIcon} from "@/components/themed/ThemedIcon";
 
 export function UserProfile() {
     const { userInfo, setUserInfo } = useAuth();
@@ -27,14 +27,14 @@ export function UserProfile() {
         <ThemedView style={styles.profile}>
             <UserAvatar size={80} name={userInfo.user_info.user.displayName} src={userInfo.user_info.user.photoURL}/>
             <ThemedView>
-                <ThemedText style={styles.text}>
+                <ThemedText>
                     Bonjour
                 </ThemedText>
-                <ThemedText style={styles.text} type="subtitle">
+                <ThemedText type="subtitle">
                     {userInfo.user_info.user.displayName}
                 </ThemedText>
             </ThemedView>
-            <Ionicons name={"log-out-outline"} color="red" size={50} onPress={logOutWithGoogle}/>
+            <ThemedIcon name={"log-out-outline"} color={"text3"} size={50} onPress={logOutWithGoogle}/>
         </ThemedView>
     );
 }
@@ -51,8 +51,5 @@ const styles = StyleSheet.create({
     logout_button: {
         width: 80,
         height: 80,
-    },
-    text: {
-        color: "black",
     }
 });

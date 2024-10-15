@@ -3,7 +3,9 @@ export const Colors = {
     default: {
       background: '#feb1c0',
       primary: '#8d4a5a',
-      text: '#000000'
+      text1: '#000000',
+      text2: '#ffffff',
+      text3: '#ff0000',
     },
     work:{
       background: '#a0cafd',
@@ -20,7 +22,9 @@ export const Colors = {
     default: {
       background: '#feb1c0',
       primary: '#8d4a5a',
-      text: '#000000'
+      text1: '#000000',
+      text2: '#ffffff',
+      text3: '#ff0000',
     },
     work:{
       background: '#a0cafd',

@@ -9,12 +9,10 @@ export type ThemedTouchProps = TouchableOpacityProps & {
 };
 
 export function ThemedTouch({ style, lightColor, darkColor, type = 'default', ...otherProps }: ThemedTouchProps) {
-    const backgroundColor = useThemeColor(        {
-            light: lightColor || Colors.light[type].primary,
-            dark: darkColor || Colors.dark[type].primary
-        },
-        type
-    );
+    const backgroundColor = useThemeColor({
+        light: lightColor || Colors.light[type].primary,
+        dark: darkColor || Colors.dark[type].primary
+    });
 
     return <TouchableOpacity style={[{ backgroundColor: backgroundColor as string }, style]} {...otherProps} />;
 }

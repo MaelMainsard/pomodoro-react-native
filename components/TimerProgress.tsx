@@ -1,10 +1,10 @@
-import {ThemedText} from "@/components/ThemedText";
-import {Ionicons} from "@expo/vector-icons";
+import {ThemedText} from "@/components/themed/ThemedText";
 import {StyleSheet, View} from "react-native";
 import {TimerPhase} from "@/hooks/useTimerLogic";
-import CircularProgress from "react-native-circular-progress-indicator";
 import {useState} from "react";
 import {useTimer} from "@/context/TimerContext";
+import {ThemedIcon} from "@/components/themed/ThemedIcon";
+import {ThemedProgress} from "@/components/themed/ThemedProgress";
 
 export function TimerProgress() {
 
@@ -17,33 +17,26 @@ export function TimerProgress() {
         isPaused
     } = useTimer();
 
-    const activeStrokeColor = currentPhase === TimerPhase.IS_WORK ? '#36618e' : '#825414';
+
     const totalTime = currentPhase === TimerPhase.IS_WORK ? currentMode.WORK : currentMode.NAP;
     const [localIsPaused, setLocalIsPaused] = useState(isPaused);
 
-    const formatTime = (timeInSeconds) => {
+    const formatTime = (timeInSeconds:number) => {
         const minutes = Math.floor(timeInSeconds / 60);
         const seconds = timeInSeconds % 60;
-        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`; // Pas de zéro initial pour les minutes
+        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     };
 
 
     return(
         <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
-            <CircularProgress
-                value={(remainingTime / totalTime) * 100}
-                radius={100}
-                showProgressValue={false}
-                circleBackgroundColor={'white'}
-                activeStrokeColor={activeStrokeColor}
-                inActiveStrokeColor={'white'}
-            />
+            <ThemedProgress remainingTime={remainingTime} totalTime={totalTime} type={currentPhase === TimerPhase.IS_WORK ? "work" : "nap"}/>
             <View style={styles.group}>
                 <ThemedText style={{marginBottom: 10}} type={"timer"}>{formatTime(remainingTime)}</ThemedText>
                 {localIsPaused ? (
-                    <Ionicons
+                    <ThemedIcon
                         name={"play"}
-                        color={activeStrokeColor}
+                        color={currentPhase === TimerPhase.IS_WORK ? "work" : "nap"}
                         size={50}
                         onPress={() => {
                             setLocalIsPaused(false);
@@ -51,9 +44,9 @@ export function TimerProgress() {
                         }}
                     />
                 ) : (
-                    <Ionicons
+                    <ThemedIcon
                         name={"pause"}
-                        color={activeStrokeColor}
+                        color={currentPhase === TimerPhase.IS_WORK ? "work" : "nap"}
                         size={50}
                         onPress={() => {
                             setLocalIsPaused(true);

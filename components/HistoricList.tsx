@@ -2,9 +2,10 @@ import { useAuth } from "@/context/AuthContext";
 import React, { useEffect, useState } from "react";
 import { getSessionByUserId } from "@/database/session.repository";
 import { SessionModel } from "@/database/session.model";
-import { ThemedView } from "@/components/ThemedView";
-import { ThemedText } from "@/components/ThemedText";
-import { ActivityIndicator } from "react-native";
+import { ThemedView } from "@/components/themed/ThemedView";
+import { ThemedText } from "@/components/themed/ThemedText";
+import {ThemedIndicator} from "@/components/themed/ThemedIndicator";
+import {StyleSheet} from "react-native";
 
 export function HistoricList() {
     const { userInfo, isLoading } = useAuth();
@@ -23,9 +24,9 @@ export function HistoricList() {
     }, [userInfo, isLoading]);
 
     return (
-        <ThemedView>
+        <ThemedView style={styles.historicList}>
             {isLoading ? (
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ThemedIndicator/>
             ) : userInfo ? (
                 sessions.length > 0 ? (
                     sessions.map((session:SessionModel,index:number) => (
@@ -42,3 +43,11 @@ export function HistoricList() {
         </ThemedView>
     );
 }
+const styles = StyleSheet.create({
+    historicList: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+});
+

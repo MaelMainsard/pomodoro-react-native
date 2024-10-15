@@ -4,21 +4,23 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Ui de symeon copié">
-      <change afterPath="$PROJECT_DIR$/components/HistoricList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/session.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/session.model.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/session.repository.ts" afterDir="false" />
+    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Session is saved for Exit button but not for app kill yet">
+      <change afterPath="$PROJECT_DIR$/components/ThemedIcon.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/ThemedIndicator.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/ThemedProgress.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/TimerWidget.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/history.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/timer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/timer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/ImagesAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/ImagesAssets.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/google-logo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ChooseTimer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ChooseTimer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/HistoricList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/HistoricList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ThemedText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ThemedTouch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedTouch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ThemedView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedView.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/TimerInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/TimerInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useFirestore.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useTimerLogic.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useTimerLogic.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/TimerProgress.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/TimerProgress.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/UserProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/UserProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/Colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/Colors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useThemeColor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useThemeColor.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +139,8 @@
       <workItem from="1728883650311" duration="2864000" />
       <workItem from="1728915165510" duration="6474000" />
       <workItem from="1728930618679" duration="3378000" />
-      <workItem from="1728972145828" duration="19099000" />
+      <workItem from="1728972145828" duration="19290000" />
+      <workItem from="1729001229493" duration="5300000" />
     </task>
     <task id="LOCAL-00001" summary="Le home screen est bon">
       <option name="closed" value="true" />
@@ -251,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728981508934</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Session is saved for Exit button but not for app kill yet">
+      <option name="closed" value="true" />
+      <created>1728991947401</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1728991947401</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,6 +283,7 @@
     <MESSAGE value="Le timer fonctionne dans toute l'apllication" />
     <MESSAGE value="Mise en place du auth sso en context" />
     <MESSAGE value="Ui de symeon copié" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ui de symeon copié" />
+    <MESSAGE value="Session is saved for Exit button but not for app kill yet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Session is saved for Exit button but not for app kill yet" />
   </component>
 </project>

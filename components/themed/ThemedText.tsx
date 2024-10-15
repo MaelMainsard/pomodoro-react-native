@@ -6,24 +6,32 @@ export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
   type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'enormous' | 'timer';
-  colorType?: 'default' | 'work' | 'nap';
-  white?: boolean;
+  colorType?: 'text1' | 'text2' | 'work' | 'nap';
 };
 
-export function ThemedText({style, lightColor, darkColor, type = 'default', colorType = 'default', white = false, ...rest}: ThemedTextProps) {
+export function ThemedText({style, lightColor, darkColor, type = 'default', colorType = 'text1', ...rest}: ThemedTextProps) {
 
-  const textColor = useThemeColor(
-      {
-        light: lightColor || (white ? 'white' : (colorType === 'work' ? Colors.light.work.text : (colorType === 'nap' ? Colors.light.nap.text : Colors.light.default.text))),
-        dark: darkColor || (white ? 'white' : (colorType === 'work' ? Colors.light.work.text : (colorType === 'nap' ? Colors.light.nap.text : Colors.light.default.text)))
-      },
-      colorType
-  );
+    const textColor = useThemeColor(
+        {
+            light: lightColor ||
+                (colorType === "text1" ? Colors.light.default.text1 :
+                    colorType === "text2" ? Colors.light.default.text2 :
+                        colorType === "work"  ? Colors.light.work.text :
+                            Colors.light.nap.text),
+
+            dark: darkColor ||
+                (colorType === "text1" ? Colors.dark.default.text1 :
+                    colorType === "text2" ? Colors.dark.default.text2 :
+                        colorType === "work"  ? Colors.dark.work.text :
+                            Colors.dark.nap.text),
+        },
+        colorType
+    );
 
   return (
       <Text
           style={[
-            { color: textColor as string }, // Assure que textColor est bien une chaîne
+            { color: textColor as string },
             type === 'default' ? styles.default : undefined,
             type === 'title' ? styles.title : undefined,
             type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,

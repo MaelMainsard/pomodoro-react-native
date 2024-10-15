@@ -1,23 +1,17 @@
-import { ThemedView } from "@/components/ThemedView";
-import {ActivityIndicator, Image, StyleSheet, View} from "react-native";
-import { useRouter } from "expo-router";
+import { ThemedView } from "@/components/themed/ThemedView";
+import {StyleSheet} from "react-native";
 import { askAllPermission } from '../hooks/usePermission';
 import React, { useEffect } from "react";
-import { ThemedText } from "@/components/ThemedText";
-import { ImagesAssets } from "@/assets/images/ImagesAssets";
-import { GoogleButton } from "@/components/GoogleButton";
 import { UserProfile } from '../components/UserProfile';
 import { useAuth } from "@/context/AuthContext";
-import {ThemedTouch} from "@/components/ThemedTouch";
-import {TimerPhase, useTimer} from "@/context/TimerContext";
-import { Ionicons } from '@expo/vector-icons';
 import { HistoricList } from "@/components/HistoricList";
+import {ThemedIndicator} from "@/components/themed/ThemedIndicator";
+import {TimerWidget} from "@/components/TimerWidget";
+import {GoogleButton} from "@/components/GoogleButton";
 
 export default function HomeScreen() {
-    const router = useRouter();
 
     const { userInfo, isLoading } = useAuth();
-    const {isTimerRunning, currentPhase,} = useTimer();
 
     useEffect(() => {
         askAllPermission();
@@ -27,24 +21,13 @@ export default function HomeScreen() {
     return (
         <ThemedView style={styles.screen}>
             {isLoading ? (
-                <ActivityIndicator style={styles.loader} size="large" color="#0000ff" />
+                <ThemedIndicator/>
             ):userInfo ? (
                 <UserProfile/>
             ) : (
                 <GoogleButton/>
-
             )}
-            <ThemedTouch style={[{ flexDirection: isTimerRunning ? 'row' : 'column' },styles.container]} onPress={() => router.push("/timer")}>
-                <View style={{alignItems: isTimerRunning ? 'left' : 'center'}}>
-                    <Image source={currentPhase == TimerPhase.IS_WORK ? ImagesAssets.work_img : ImagesAssets.nap_img} style={styles.image}/>
-                    <ThemedText type="subtitle" white={true}>
-                        {isTimerRunning ? currentPhase == TimerPhase.IS_WORK ? "Au boulot !" : "Une pause s'impose" : "Commencer à travailer"}
-                    </ThemedText>
-                </View>
-                {isTimerRunning && (
-                    <Ionicons name="chevron-forward-outline" color="white" size={30} />
-                )}
-            </ThemedTouch>
+            <TimerWidget/>
             <HistoricList/>
         </ThemedView>
     );
@@ -55,25 +38,4 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
-    container: {
-        borderRadius: 20,
-        width: '90%',
-        height: "auto",
-        padding: 20,
-        color: 'primary',
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'space-between'
-    },
-    image : {
-        width: 60,
-        height: 60,
-    },
-    button: {
-        marginTop: 50
-    },
-    loader: {
-        marginTop: 80,
-        marginBottom: 54
-    }
 });
