@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Ui fixed">
+    <list default="true" id="2f1ba674-69ef-40d1-9618-59eaa0d9b03c" name="Changes" comment="Fix de quelque bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/TimerInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/TimerInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useTimerLogic.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useTimerLogic.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/useGoogleAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useGoogleAuth.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +129,10 @@
       <workItem from="1728915165510" duration="6474000" />
       <workItem from="1728930618679" duration="3378000" />
       <workItem from="1728972145828" duration="19290000" />
-      <workItem from="1729001229493" duration="8329000" />
+      <workItem from="1729001229493" duration="8488000" />
+      <workItem from="1729066455281" duration="12000" />
+      <workItem from="1729093427616" duration="27000" />
+      <workItem from="1729243778293" duration="515000" />
     </task>
     <task id="LOCAL-00001" summary="Le home screen est bon">
       <option name="closed" value="true" />
@@ -260,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729006741121</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fix de quelque bug">
+      <option name="closed" value="true" />
+      <created>1729009712604</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1729009712604</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,6 +293,7 @@
     <MESSAGE value="Ui de symeon copié" />
     <MESSAGE value="Session is saved for Exit button but not for app kill yet" />
     <MESSAGE value="Ui fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ui fixed" />
+    <MESSAGE value="Fix de quelque bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix de quelque bug" />
   </component>
 </project>

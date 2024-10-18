@@ -18,9 +18,12 @@
           "fetch",
           "remote-notification"
         ],
-        "NSUserNotificationUsageDescription": "This app requires permission to send you notifications."
+        "NSUserNotificationUsageDescription": "This app requires permission to send you notifications.",
+        "NSLocationWhenInUseUsageDescription": "This app needs access to your location to provide better services.",
+        "NSLocationAlwaysUsageDescription": "This app needs access to your location in the background to function properly."
       },
-      "bundleIdentifier": "com.maelsymeon.pomodoro"
+      "bundleIdentifier": "com.maelsymeon.pomodoro",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "googleServicesFile": "./google-services.json",

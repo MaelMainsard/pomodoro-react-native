@@ -40,6 +40,7 @@ export interface SignOutWithGoogleResResponse {
 GoogleSignin.configure({
     offlineAccess: true,
     webClientId: "421858371890-klbs1rofpjr3ff0iscejev0i3r5isedm.apps.googleusercontent.com",
+    iosClientId: "421858371890-hdv22ttrdoa50rt7t91haccghanm1qk2.apps.googleusercontent.com",
     scopes: ['profile', 'email'],
 });
 
