@@ -1,0 +1,8 @@
+name: CI pipeline for create tag and artefact in github
+
+on:
+  pull_request:
+    branches:
+      - 'prod'
+      -
+jobs:
