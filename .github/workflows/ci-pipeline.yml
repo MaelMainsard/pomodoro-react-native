@@ -1,63 +1,40 @@
-name: Create Release Tag on Push
+name: Build APK on Release
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created] # Déclenche uniquement lors de la création d'une release
 
 jobs:
-  create-release-tag:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get latest commit message
-        id: get_commit
-        run: |
-          echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # ou la version de Node.js que vous utilisez
 
-      - name: Check for release pattern
-        id: check_pattern
-        run: |
-          echo "Checking commit message for release pattern..."
-          if [[ "${{ env.COMMIT_MESSAGE }}" == *"release:"* ]]; then
-            echo "RELEASE_PATTERN_FOUND=true" >> $GITHUB_ENV
-          else
-            echo "RELEASE_PATTERN_FOUND=false" >> $GITHUB_ENV
-          fi
-
-      - name: Create Release Tag
-        if: env.RELEASE_PATTERN_FOUND == 'true'
-        run: |
-          VERSION=$(echo "${{ env.COMMIT_MESSAGE }}" | grep -oP '(?<=release: )\d+\.\d+\.\d+')
-          if [ -z "$VERSION" ]; then
-            echo "Version number not found in the commit message."
-            exit 1
-          fi
-          echo "Creating tag v$VERSION..."
-          git tag "v$VERSION"
-          git push origin "v$VERSION"
+      - name: Install dependencies
+        run: npm install
 
       - name: Build APK
-        if: env.RELEASE_PATTERN_FOUND == 'true'
         run: |
           npm install -g expo-cli
-          expo build:android --no-publish --release-channel "${{ github.event.ref }}"
+          expo build:android --no-publish --release-channel ${{ github.event.release.tag_name }}
 
       - name: Upload APK
-        if: env.RELEASE_PATTERN_FOUND == 'true'
         uses: actions/upload-artifact@v2
         with:
           name: app.apk
           path: ./android/app/build/outputs/apk/release/app-release.apk # Chemin vers l'APK généré
 
       - name: Create GitHub Release
-        if: env.RELEASE_PATTERN_FOUND == 'true'
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: "v${{ env.VERSION }}"
+          tag_name: ${{ github.event.release.tag_name }}
           files: ./android/app/build/outputs/apk/release/app-release.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
