@@ -131,6 +131,8 @@ trigger: null
 
 ## Usage
 
+For Android users 📱, you can download the `.apk` file directly to your phone, available in the artifacts of this GitHub repository 🗂️.
+
 ### Android Emulator
 
 1. Launch your emulator
