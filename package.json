@@ -1,14 +1,15 @@
 {
   "name": "pomodoro",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "1.0",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "eas-build-pre-install": "echo $GOOGLE_SERVICES_BASE64 | base64 --decode > google-services.json && echo $ENV_FILE | base64 --decode > env.ts"
   },
   "jest": {
     "preset": "jest-expo"
@@ -29,6 +30,7 @@
     "@ui-kitten/eva-icons": "^5.3.1",
     "expo": "~51.0.28",
     "expo-background-fetch": "~12.0.1",
+    "expo-build-properties": "^0.12.5",
     "expo-constants": "~16.0.2",
     "expo-font": "~12.0.9",
     "expo-linking": "~6.3.1",
