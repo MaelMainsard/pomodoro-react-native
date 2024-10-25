@@ -3,7 +3,7 @@
 
 <img src="assets/images/global_icon.png" alt="Logo" width="80" height="80">
 
-<h3 align="center">Pomoboro - React Native</h3>
+<h3 align="center">Pomodoro - React Native</h3>
 
 <p align="center">
     Un timer pomodoro crée en react native 🚀
@@ -13,7 +13,7 @@
 
 ## A propos du projet
 
-Pomoboro est une application qui propose un minuteur avec plusieurs modes pour travailler selon la technique Pomodoro 🍅. Ce projet a été développé dans le cadre d'un cours de développement mobile multiplateforme 📱.
+Pomodoro est une application qui propose un minuteur avec plusieurs modes pour travailler selon la technique Pomodoro 🍅. Ce projet a été développé dans le cadre d'un cours de développement mobile multiplateforme 📱.
 
 <div style="display: flex">
 <img src="assets/screenshots/Home.png" alt="HomePage" width="200" style="margin-right: 20px"/>
@@ -47,9 +47,8 @@ Pomoboro est une application qui propose un minuteur avec plusieurs modes pour t
 
 - **Web** 🌐 : `Non pris en charge`.
 
-Voici la traduction en français avec des émojis :
 
-### Technologies Utilisées dans Pomoboro 🚀
+### Technologies Utilisées dans Pomodoro 🚀
 
 #### Frameworks 🧩
 - ![React Native][React-Native.js]
