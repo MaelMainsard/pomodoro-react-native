@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { HistoricList } from "@/components/HistoricList";
 import {TimerWidget} from "@/components/TimerWidget";
 import {GoogleButton} from "@/components/GoogleButton";
+import {View} from "react-native";
 
 
 export default function HomeScreen() {
@@ -21,7 +22,9 @@ export default function HomeScreen() {
     return (
         <Layout style={{ flex:1, alignItems:"center", backgroundColor: theme['color-primary-50'] }}>
              {isLoading ? (
-                 <Spinner style={{ borderColor: theme['color-primary-300'] }} />
+                 <View style={{paddingTop: 60, paddingBottom: 20}}>
+                     <Spinner style={{ borderColor: theme['color-primary-300']}} />
+                 </View>
              ):userInfo ? (
                  <UserProfile/>
              ) : (

@@ -54,10 +54,10 @@ export function HistoricList() {
                         ))}
                     </ScrollView>
                 ) : (
-                    <Text>No sessions found</Text>
+                    <Text>Aucune session enregistré</Text>
                 )
             ) : (
-                <Text>Nothing to display</Text>
+                <Text>Connectez-vous pour accéder à l'historique</Text>
             )}
         </View>
     );
@@ -67,6 +67,8 @@ const styles = StyleSheet.create({
     historicList: {
         flex: 1,
         width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
     },
     scrollContent: {
         alignItems: "center",

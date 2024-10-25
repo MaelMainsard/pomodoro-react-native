@@ -120,8 +120,6 @@ trigger: null
 
 ## Utilisation
 
-Pour les utilisateurs Android 📱, vous pouvez télécharger le fichier `.apk` directement sur votre téléphone, disponible dans les artefacts de ce dépôt GitHub 🗂️.
-
 ### Développement Android
 
 Pour développer pour Android, il est préférable d'utiliser l'émulateur Android.

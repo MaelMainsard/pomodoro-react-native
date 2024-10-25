@@ -40,7 +40,7 @@ export const HistoricTile: React.FC<HistoricTileProps> = ({ session }) => {
     const { workCycles, restCycles } = calculateCompletedCycles();
 
     return (
-        <Layout style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "90%", marginVertical: 10, borderRadius: 15, paddingVertical: 15, paddingHorizontal: 50 }}>
+        <Layout style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "95%", marginVertical: 10, borderRadius: 15, paddingVertical: 15, paddingHorizontal: 50 }}>
             <View style={{ display: "flex", flexDirection: "row" }}>
                 <Text style={{ color: theme['color-primary-400'] }}>{session.workMinutes}</Text>
                 <Text> / </Text>
