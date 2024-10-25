@@ -6,9 +6,11 @@ import { StyleSheet, ScrollView, View } from "react-native";
 import { HistoricTile } from "@/components/HistoricTile";
 import duration from 'dayjs/plugin/duration';
 import dayjs from 'dayjs';
+import 'dayjs/locale/fr';
 import { Spinner, Text, useTheme } from "@ui-kitten/components";
 
 dayjs.extend(duration);
+dayjs.locale('fr');
 
 export function HistoricList() {
     const theme = useTheme();
@@ -44,7 +46,7 @@ export function HistoricList() {
                     <ScrollView contentContainerStyle={styles.scrollContent}>
                         {Object.entries(groupedSessions).map(([date, sessions]) => (
                             <View key={date}>
-                                <Text style={styles.dateText}>{dayjs(date).format('MMMM D, YYYY')}</Text>
+                                <Text style={styles.dateText}>{dayjs(date).format('D MMMM YYYY')}</Text>
                                 {sessions.map((session, index) => (
                                     <HistoricTile key={index} session={session} />
                                 ))}

@@ -31,7 +31,7 @@ export default function RootLayout() {
                     <TimerProvider>
                         <Stack>
                             <Stack.Screen name="index" options={{ headerShown: false }} />
-                            <Stack.Screen name="timer" options={{ headerShown: true, headerTransparent: true, headerTitle: '' }} />
+                            <Stack.Screen name="timer" options={{ headerShown: true, headerTransparent: true, headerTitle: '',  headerBackTitleVisible: false }} />
                             <Stack.Screen name="+not-found" />
                         </Stack>
                     </TimerProvider>
