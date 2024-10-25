@@ -6,11 +6,11 @@ import { StyleSheet, ScrollView, View } from "react-native";
 import { HistoricTile } from "@/components/HistoricTile";
 import duration from 'dayjs/plugin/duration';
 import dayjs from 'dayjs';
-import 'dayjs/locale/fr';
+import 'dayjs/locale/fr'; // Importer la locale française
 import { Spinner, Text, useTheme } from "@ui-kitten/components";
 
 dayjs.extend(duration);
-dayjs.locale('fr');
+dayjs.locale('fr'); // Définir la locale sur "fr"
 
 export function HistoricList() {
     const theme = useTheme();
@@ -25,17 +25,17 @@ export function HistoricList() {
     }, [userInfo, isLoading]);
 
     const groupSessionsByDate = (sessions: SessionModel[]) => {
-        return sessions.reduce<{ [key: string]: SessionModel[] }>((acc, session) => {
-            const date = dayjs(session.startedAt.toDate()).format('YYYY-MM-DD');
-            if (!acc[date]) acc[date] = [];
-            acc[date].push(session);
-            return acc;
-        }, {});
+        return sessions
+            .sort((a, b) => dayjs(b.startedAt.toDate()).isAfter(dayjs(a.startedAt.toDate())) ? 1 : -1) // Trier les sessions dans l'ordre inverse
+            .reduce<{ [key: string]: SessionModel[] }>((acc, session) => {
+                const date = dayjs(session.startedAt.toDate()).format('YYYY-MM-DD');
+                if (!acc[date]) acc[date] = [];
+                acc[date].push(session);
+                return acc;
+            }, {});
     };
 
-    const groupedSessions = groupSessionsByDate(sessions.sort((a, b) =>
-        dayjs(a.startedAt.toDate()).isBefore(dayjs(b.startedAt.toDate())) ? +1 : 1
-    ));
+    const groupedSessions = groupSessionsByDate(sessions);
 
     return (
         <View style={styles.historicList}>
