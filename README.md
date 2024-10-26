@@ -75,6 +75,8 @@ Avant d'utiliser le code du projet, assurez-vous d'avoir les prérequis corrects
 
 ### Prérequis
 
+* Un emulateur android
+* Docker (Si vous souhaitez émuler macOS)
 * **Node.js** : `>= v21.7.3`
 * **Java** : `>= 17.0.12`
 * Fichier de variables d'environnement : `env.ts`
@@ -87,7 +89,7 @@ Veuillez suivre attentivement le guide d'installation 📝 pour éviter des prob
 
 1. Clonez le dépôt
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/MaelMainsard/pomodoro-react-native.git
    ```
 2. Installez les packages npm
    ```sh
