@@ -228,7 +228,7 @@ Avant de commencer, assurez-vous de disposer d’au moins 60 Go d’espace de st
 
 ---
 
-#### Emulation d'iOS 🖥️
+#### Émulation d'iOS 🖥️
 
 1. **Configuration du projet** : Assurez-vous d’être à la racine du projet, puis exécutez les étapes de l’installation iOS.
 2. **Installation des dépendances iOS** : Depuis le dossier `ios` de votre projet, exécutez :
@@ -243,14 +243,15 @@ Avant de commencer, assurez-vous de disposer d’au moins 60 Go d’espace de st
    npm run ios
    ```
 
-5. 🎉 **Tout est prêt** ! Si tout s’est bien passé, votre application devrait maintenant se lancer sur l'émulateur iOS.
+5. Si vous recevez un message d'erreur indiquant "too many files open...", relancez la commande `npm install`.
 
+6. 🎉 **Tout est prêt** ! Si tout s’est bien passé, votre application devrait maintenant se lancer sur l'émulateur iOS.
 
-## Contributors
+## Contributeurs
 
 Les contributeurs de ce projet sont :
 - Maël Mainsard
-- Symeon Rougevin
+- Syméon Rougevin-Bâville
 
 ## Contact
 
