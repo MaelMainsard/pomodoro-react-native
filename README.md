@@ -144,6 +144,10 @@ Ce guide vous aidera à configurer un environnement iOS en utilisant un émulate
 
 #### Installation de l'Émulateur macOS 💻
 
+Cette documentation ce base sur le repository github Docker-OSX. La documentation si dessous ne fonctionne que pour linux. Pour la faire fonctionner pour windows vous devez suivre cette documentation : 
+
+https://github.com/sickcodes/Docker-OSX?tab=readme-ov-file#id-like-to-run-docker-osx-on-windows
+
 Avant de commencer, assurez-vous de disposer d’au moins 60 Go d’espace de stockage libre et de 16 Go de RAM.
 
 1. **Clonez le dépôt** de Docker-OSX :
